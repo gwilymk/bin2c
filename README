@@ -1,0 +1,36 @@
+bin2c - A simple utility for converting a binary file to a c application which
+can then be included within an application.
+
+Usage:
+
+bin2c input_file output_file array_name
+
+for example, using:
+    bin2c my_file.dat my_file.h data
+
+will create something along the lines of
+
+   const char data[] = {
+       0x43, 0x28, 0x41, 0x11, 0xa3, 0xff,
+       ...
+       0x00, 0xff, 0x23
+   };
+   
+   const int data_length = 3432;
+
+This can then be used within your application, for example with SDL you would
+use SDL_RWops. The application can also be used in a very similar fashion to
+Qt's RC system.
+
+I haven't included a Makefile because the utility is SO simple, I don't
+think that one is needed. But for an example, compiling for GNU/Linux can be
+done as shown
+
+   gcc -o bin2c bin2c.c
+
+Patches are welcome, just fork the project on github and send me a pull
+request. If you are unable or unwilling to do this through github, then feel
+free to email me your patch. This utility is so small I don't think that any
+licence is needed, and I took most of the code from Serge Fukanchick and made
+a few modifications so left it in the public domain. So please just send me a
+little note to say that you don't mind your code being in the public domain.
