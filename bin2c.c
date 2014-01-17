@@ -85,6 +85,8 @@ main ( int argc, char* argv[] )
     }
 
     ident = argv[3];
+    
+    need_comma = 0;
 
     fprintf (f_output, "const char %s[%i] = {", ident, file_size);
     for (i = 0; i < file_size; ++i)
