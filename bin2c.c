@@ -88,7 +88,7 @@ main ( int argc, char* argv[] )
     
     need_comma = 0;
 
-    fprintf (f_output, "const char %s[%i] = {", ident, file_size);
+    fprintf (f_output, "const unsigned char %s[%i] = {", ident, file_size);
     for (i = 0; i < file_size; ++i)
     {
         if (need_comma) fprintf(f_output, ", ");
