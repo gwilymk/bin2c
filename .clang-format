@@ -1,0 +1,7 @@
+---
+BasedOnStyle:  Mozilla
+IndentWidth:     4
+SpaceAfterCStyleCast: true
+PointerAlignment: Right
+...
+
