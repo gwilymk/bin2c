@@ -24,8 +24,8 @@ int
 main(int argc, char *argv[])
 {
     unsigned char *buf;
-    char *ident;
-    unsigned int i, file_size, need_comma;
+    char array_name[80];
+    unsigned int i, file_size, file_count, need_comma;
     int incr = 1;
     int arg = 1;
     const char* filename;
@@ -38,7 +38,7 @@ main(int argc, char *argv[])
 #endif
 
     if (argc < 4) {
-        fprintf(stderr, "Usage: %s [-w] binary_file output_file array_name\n",
+        fprintf(stderr, "Usage: %s [-w] binary_file output_file [array_name]\n",
                 argv[0]);
         return -1;
     }
@@ -96,15 +96,26 @@ main(int argc, char *argv[])
         return -1;
     }
 
-    ident = argv[arg];
+	// Check if array_name passed on command line
+	if (arg < argc) {
+		strcpy(array_name, argv[argc]);
+	} else {
+		char ch;
+		strcpy(array_name, filename);
+		// Replace non-alphanumeric chars with underscore
+		for (i = 0; (ch = array_name[i]) != '\0'; ++i) {
+			if (!isalpha(ch) && !isdigit(ch)) {
+				array_name[i] = '_';
+			}
+		}
+			
+	}
 
     need_comma = 0;
+	
+	file_count = file_size / incr;
 
-    if (incr > 1) {
-	fprintf(f_output, "const unsigned short %s[%i] = {", ident, file_size);
-    } else {
-	fprintf(f_output, "const unsigned char %s[%i] = {", ident, file_size);
-    }
+	fprintf(f_output, "const unsigned short %s[%i] = {", array_name, file_count);
     for (i = 0; i < file_size; i += incr) {
         if (need_comma)
             fprintf(f_output, ", ");
@@ -120,10 +131,10 @@ main(int argc, char *argv[])
     }
     fprintf(f_output, "\n};\n\n");
 
-    fprintf(f_output, "const int %s_length = %i;\n", ident, file_size);
+    fprintf(f_output, "const int %s_length = %i;\n", array_name, file_count);
 
 #ifdef USE_BZ2
-    fprintf(f_output, "const int %s_length_uncompressed = %i;\n", ident,
+    fprintf(f_output, "const int %s_length_uncompressed = %i;\n", array_name,
             uncompressed_size);
 #endif
 
