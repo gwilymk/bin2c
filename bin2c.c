@@ -81,7 +81,7 @@ main(int argc, char *argv[])
 
     f_output = fopen(argv[2], "w");
     if (f_output == NULL) {
-        fprintf(stderr, "%s: can't open %s for writing\n", argv[0], argv[1]);
+        fprintf(stderr, "%s: can't open %s for writing\n", argv[0], argv[2]);
         return -1;
     }
 
