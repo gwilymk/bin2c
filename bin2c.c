@@ -98,7 +98,7 @@ main(int argc, char *argv[])
 
 	// Check if array_name passed on command line
 	if (arg < argc) {
-		strcpy(array_name, argv[argc]);
+		strcpy(array_name, argv[arg]);
 	} else {
 		char ch;
 		strcpy(array_name, filename);
